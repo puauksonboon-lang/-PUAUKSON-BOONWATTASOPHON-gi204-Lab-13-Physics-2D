@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody2D rb2d;
 
+    Vector2 moveInput;
+
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -18,10 +20,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        move = Input.GetAxis("Horizontal"); //x - axis
+        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        rb2d.AddForce(moveInput * Speed);
 
         //use rigidbody2d to move left and right (x-axis)
-        rb2d.velocity = new Vector2(move * Speed, rb2d.velocity.y);
+        //rb2d.velocity = new Vector2(move * Speed, rb2d.velocity.y);
 
         //jump
         if (Input.GetButtonDown("Jump")&& !IsJumping)
